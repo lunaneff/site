@@ -85,18 +85,29 @@ func main() {
 	}
 	wg.Wait()
 
-	staticPaths, err := filepath.Glob(staticDir + "/**")
-	if err != nil {
-		panic(err)
-	}
-	for _, path := range staticPaths {
+	err = filepath.Walk(staticDir, func(path string, info os.FileInfo, err error) error {
+		if path == staticDir {
+			// this function is called for the dir itself; don't do anything in that case to avoid confusing output
+			return nil
+		}
+
 		fmt.Printf("Copy %s... ", path)
+		outPath := outDir + strings.TrimPrefix(path, staticDir)
+
+		if info.IsDir() {
+			err = os.MkdirAll(outPath, os.ModePerm)
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println("Directory created")
+			return nil
+		}
+
 		src, err := os.Open(path)
 		if err != nil {
 			panic(err)
 		}
 		defer src.Close()
-		outPath := outDir + strings.TrimPrefix(path, staticDir)
 		dst, err := os.Create(outPath)
 		if err != nil {
 			panic(err)
@@ -108,6 +119,11 @@ func main() {
 			panic(err)
 		}
 		fmt.Printf("%d bytes copied\n", num)
+
+		return nil
+	})
+	if err != nil {
+		panic(err)
 	}
 }
 
