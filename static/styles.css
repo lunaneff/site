@@ -131,6 +131,7 @@ header nav a::before {
 
 /* make markdown look kinda like the source code */
 
+main > h1::before,
 .markdown h1::before,
 .markdown h2::before,
 .markdown h3::before,
@@ -140,6 +141,7 @@ header nav a::before {
   color: var(--color-love);
 }
 
+main > h1::before,
 .markdown h1::before {
   content: '# ';
   content: '# ' / '';
