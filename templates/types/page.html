@@ -5,6 +5,8 @@
 {{ define "content" }}
   <main>
     <h1>{{ .Meta.Title }}</h1>
-    {{ .Content }}
+    <div class="markdown">
+      {{ .Content }}
+    </div>
   </main>
 {{ end }}

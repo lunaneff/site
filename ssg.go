@@ -13,7 +13,9 @@ import (
 	"sync"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"go.abhg.dev/goldmark/frontmatter"
 )
 
@@ -25,7 +27,14 @@ var outDir string
 
 func main() {
 	md = goldmark.New(
+		goldmark.WithRendererOptions(
+			html.WithUnsafe(),
+		),
 		goldmark.WithExtensions(
+			extension.Table,
+			extension.Strikethrough,
+			extension.Linkify,
+			extension.Footnote,
 			&frontmatter.Extender{},
 		),
 	)

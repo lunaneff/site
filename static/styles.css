@@ -1,0 +1,125 @@
+html {
+  --color-base: #191724;
+  --color-surface: #1f1d2e;
+  --color-overlay: #26233a;
+  --color-muted: #6e6a86;
+  --color-subtle: #908caa;
+  --color-text: #e0def4;
+  --color-love: #eb6f92;
+  --color-gold: #f6c177;
+  --color-rose: #ebbcba;
+  --color-pine: #31748f;
+  --color-foam: #9ccfd8;
+  --color-iris: #c4a7e7;
+  --color-highlight-low: #21202e;
+  --color-highlight-med: #403d52;
+  --color-highlight-high: #524f67;
+}
+
+html {
+  font-family: 'monospace';
+  font-size: 16px;
+  line-height: 2;
+  background: var(--color-base);
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-iris);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* make markdown look kinda like the source code */
+
+.markdown h1::before,
+.markdown h2::before,
+.markdown h3::before,
+.markdown h4::before,
+.markdown h5::before,
+.markdown h6::before {
+  color: var(--color-love);
+}
+
+.markdown h1::before {
+  content: '# ';
+  content: '# ' / '';
+}
+
+.markdown h2::before {
+  content: '## ';
+  content: '## ' / '';
+}
+
+.markdown h3::before {
+  content: '### ';
+  content: '### ' / '';
+}
+
+.markdown h4::before {
+  content: '#### ';
+  content: '#### ' / '';
+}
+
+.markdown h5::before {
+  content: '##### ';
+  content: '##### ' / '';
+}
+
+.markdown h6::before {
+  content: '###### ';
+  content: '###### ' / '';
+}
+
+.markdown pre, .markdown code, .markdown kbd {
+  background: var(--color-overlay);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.markdown code::before, .markdown code::after {
+  color: var(--color-love);
+  content: '`';
+  content: '`' / '';
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.markdown pre::before, .markdown pre::after {
+  color: var(--color-love);
+  content: '```';
+  content: '```' / '';
+  display: block;
+}
+
+.markdown pre code::before, .markdown pre code::after {
+  content: '';
+}
+
+.markdown li::marker {
+  color: var(--color-love);
+}
+
+.markdown ul li::marker {
+  content: '* ';
+  content: '* ' / '';
+}
+
+.markdown em::before, .markdown em::after {
+  color: var(--color-love);
+  content: '*';
+  content: '*' / '';
+}
+
+.markdown strong::before, .markdown strong::after {
+  color: var(--color-love);
+  content: '**';
+  content: '**' / '';
+}
