@@ -33,6 +33,39 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Syntax Highlighting */
+.chroma .err, .chroma .gd {
+  color: var(--color-love);
+}
+
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kp, .chroma .kr, .chroma .kt, .chroma .ne, .chroma .se  {
+  color: var(--color-pine);
+}
+
+.chroma .kn, .chroma .gu {
+  color: var(--color-iris);
+}
+
+.chroma .n, .chroma .na, .chroma .nb, .chroma .bp, .chroma .ni, .chroma .ne, .chroma .nf, .chroma .fm, .chroma .nl, .chroma .nn, .chroma .py, .chroma .nt, .chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi, .chroma .vm {
+  color: var(--color-rose);
+}
+
+.chroma .nc, .chroma .gi {
+  color: var(--color-foam);
+}
+
+.chroma .no, .chroma .l, .chroma .ld, .chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s2,  .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .sl, .chroma .ss, .chroma .m,  .chroma .mb, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo {
+  color: var(--color-gold);
+}
+
+.chroma .nd, .chroma .o, .chroma .ow, .chroma .p {
+  color: var(--color-subtle);
+}
+
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .cs, .chroma .cp, .chroma .cpf {
+  color: var(--color-muted);
+}
+
 /* make markdown look kinda like the source code */
 
 .markdown h1::before,
@@ -74,35 +107,6 @@ a:hover {
   content: '###### ' / '';
 }
 
-.markdown pre, .markdown code, .markdown kbd {
-  background: var(--color-overlay);
-  padding: 6px 12px;
-  border-radius: 8px;
-}
-
-.markdown code::before, .markdown code::after {
-  color: var(--color-love);
-  content: '`';
-  content: '`' / '';
-}
-
-.markdown pre code {
-  background: none;
-  padding: 0;
-  border-radius: 0;
-}
-
-.markdown pre::before, .markdown pre::after {
-  color: var(--color-love);
-  content: '```';
-  content: '```' / '';
-  display: block;
-}
-
-.markdown pre code::before, .markdown pre code::after {
-  content: '';
-}
-
 .markdown li::marker {
   color: var(--color-love);
 }
@@ -122,4 +126,63 @@ a:hover {
   color: var(--color-love);
   content: '**';
   content: '**' / '';
+}
+
+.markdown del::before, .markdown del::after {
+  color: var(--color-love);
+  content: '~~';
+  content: '~~' / '';
+  display: inline-block; /* to prevent it from being strikethrough */
+}
+
+.markdown pre, .markdown code, .markdown kbd {
+  background: var(--color-overlay);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.markdown code::before, .markdown code::after {
+  color: var(--color-love);
+  content: '`';
+  content: '`' / '';
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  tab-size: 2;
+}
+
+.markdown pre::before, .markdown pre::after {
+  color: var(--color-love);
+  content: '```';
+  content: '```' / '';
+  display: block;
+}
+
+.markdown pre code::before, .markdown pre code::after {
+  content: '';
+}
+
+.markdown blockquote {
+  position: relative;
+}
+
+.markdown blockquote::before {
+  content: '>';
+  content: '>' / '';
+  color: var(--color-love);
+  position: absolute;
+  left: -2em;
+}
+
+.markdown hr {
+  border: none;
+}
+
+.markdown hr::before {
+  content: '---';
+  content: '---' / '';
+  color: var(--color-love);
 }

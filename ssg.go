@@ -12,10 +12,12 @@ import (
 	"strings"
 	"sync"
 
+	chromaHtml "github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
-	"github.com/yuin/goldmark/renderer/html"
+	goldmarkHtml "github.com/yuin/goldmark/renderer/html"
 	"go.abhg.dev/goldmark/frontmatter"
 )
 
@@ -28,7 +30,7 @@ var outDir string
 func main() {
 	md = goldmark.New(
 		goldmark.WithRendererOptions(
-			html.WithUnsafe(),
+			goldmarkHtml.WithUnsafe(),
 		),
 		goldmark.WithExtensions(
 			extension.Table,
@@ -36,6 +38,12 @@ func main() {
 			extension.Linkify,
 			extension.Footnote,
 			&frontmatter.Extender{},
+			highlighting.NewHighlighting(
+				highlighting.WithFormatOptions(
+					chromaHtml.WithClasses(true),
+					chromaHtml.TabWidth(2),
+				),
+			),
 		),
 	)
 
