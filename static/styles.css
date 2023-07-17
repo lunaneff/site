@@ -44,6 +44,12 @@ html {
   color: var(--color-text);
 }
 
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
 a {
   color: var(--color-foam);
   text-decoration: none;
