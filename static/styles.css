@@ -53,6 +53,43 @@ a:hover {
   text-decoration: underline;
 }
 
+header {
+  display: flex;
+  gap: 8px;
+  color: var(--color-subtle);
+}
+
+header a {
+  color: unset;
+}
+
+header .user {
+  color: var(--color-love);
+}
+
+header .host {
+  color: var(--color-gold);
+}
+
+header .path {
+  color: var(--color-foam);
+}
+
+header nav {
+  display: flex;
+  gap: 16px;
+}
+
+header nav a {
+  color: var(--color-foam)
+}
+
+header nav a::before {
+  content: 'cd ';
+  content: 'cd ' / '';
+  color: var(--color-subtle);
+}
+
 /* Syntax Highlighting */
 .chroma .err, .chroma .gd {
   color: var(--color-love);

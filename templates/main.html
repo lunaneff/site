@@ -2,11 +2,21 @@
 <head>
   <meta charset="UTF-8">
   <meta iname="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="1">
+  <meta http-equiv="refresha" content="1">
   <link rel="stylesheet" href="/styles.css">
   {{ template "head" . }}
 </head>
 <body>
-  {{ template "content" . }}
+  <header>
+    {{/* todo: turn path part into breadcrumbs */}}
+    <a href="/"><span class="user">user</span>@<span class="host">lunaa.ch</span>:<span class="path">~</span>$</a>
+    <nav>
+      <a href="/">~</a>
+      <a href="/projects.html">~/projects</a>
+    </nav>
+  </header>
+  <main>
+    {{ template "content" . }}
+  </main>
 </body>
 </main>
