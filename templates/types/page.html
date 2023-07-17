@@ -1,0 +1,10 @@
+{{ define "head" }}
+  <title>{{ .Meta.Title }}</title>
+{{ end }}
+
+{{ define "content" }}
+  <main>
+    <h1>{{ .Meta.Title }}</h1>
+    {{ .Content }}
+  </main>
+{{ end }}
