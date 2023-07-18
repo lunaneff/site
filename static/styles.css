@@ -221,6 +221,10 @@ main > h2::before,
   tab-size: 2;
 }
 
+.markdown pre {
+  overflow-x: auto;
+}
+
 .markdown pre::before, .markdown pre::after {
   color: var(--color-love);
   content: '```';

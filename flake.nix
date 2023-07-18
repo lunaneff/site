@@ -35,7 +35,6 @@
         dontUnpack = true; # we don't have sources; unpacking will cause an error
 
         buildPhase = ''
-          set -x
           site -contentDir $contentDir -staticDir $staticDir -templateDir $templateDir -out $out
         '';
       };
