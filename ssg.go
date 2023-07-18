@@ -9,8 +9,10 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
+	"time"
 
 	chromaHtml "github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/yuin/goldmark"
@@ -59,7 +61,14 @@ func main() {
 		os.RemoveAll(outDir)
 	}
 
-	pagePaths, err := filepath.Glob(contentDir + "/**.md")
+	//pagePaths, err := filepath.Glob(contentDir + "/**.md")
+	var pagePaths []string
+	err := filepath.Walk(contentDir, func(path string, info os.FileInfo, err error) error {
+		if strings.HasSuffix(path, ".md") {
+			pagePaths = append(pagePaths, path)
+		}
+		return nil
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -71,7 +80,9 @@ func main() {
 		wg.Add(1)
 		go func(i int, path string) {
 			defer wg.Done()
-			pages[i] = ParsePage(path)
+			ctx := ParsePage(path)
+			ctx.AllPages = pages
+			pages[i] = ctx
 		}(i, path)
 	}
 	wg.Wait()
@@ -128,15 +139,18 @@ func main() {
 }
 
 type PageMeta struct {
-	Title string `yaml:"title"`
-	Desc  string `yaml:"description"`
-	Type  string `yaml:"type"`
+	Title     string         `yaml:"title"`
+	Desc      string         `yaml:"description"`
+	Type      string         `yaml:"type"`
+	Published time.Time      `yaml:"published"`
+	Custom    map[string]any `yaml:"custom"`
 }
 
 type RenderContext struct {
-	Path    string
-	Content template.HTML
-	Meta    PageMeta
+	Path     string
+	Content  template.HTML
+	Meta     PageMeta
+	AllPages []RenderContext
 }
 
 func ParsePage(path string) RenderContext {
@@ -163,7 +177,7 @@ func ParsePage(path string) RenderContext {
 
 	content := string(buf.Bytes())
 
-	return RenderContext{url, template.HTML(content), meta}
+	return RenderContext{url, template.HTML(content), meta, nil}
 }
 
 func RenderPage(ctx RenderContext) {
@@ -172,7 +186,34 @@ func RenderPage(ctx RenderContext) {
 
 	fmt.Printf("Render %s\n", outPath)
 
-	tmpl, err := template.ParseFiles(templateDir+"/main.html", templateDir+"/types/"+ctx.Meta.Type+".html")
+	tmpl := template.New("main")
+
+	tmpl = tmpl.Funcs(template.FuncMap{
+		"url": func(path string) string {
+			return strings.TrimSuffix(path+".html", "index.html")
+		},
+		"filterType": func(neededType string, pages []RenderContext) []RenderContext {
+			ret := make([]RenderContext, 0)
+			for _, page := range pages {
+				if page.Meta.Type == neededType {
+					ret = append(ret, page)
+				}
+			}
+			return ret
+		},
+		"formatTime": func(format string, time time.Time) string {
+			return time.Format(format)
+		},
+		"mostRecent": func(pages []RenderContext) []RenderContext {
+			pages = append([]RenderContext{}, pages...) // make a copy; sort mutates
+			sort.Slice(pages, func(i, j int) bool {
+				return pages[i].Meta.Published.After(pages[j].Meta.Published)
+			})
+			return pages
+		},
+	})
+
+	tmpl, err := tmpl.ParseFiles(templateDir+"/main.html", templateDir+"/types/"+ctx.Meta.Type+".html")
 	if err != nil {
 		panic(err)
 	}
@@ -184,5 +225,12 @@ func RenderPage(ctx RenderContext) {
 	}
 	defer f.Close()
 
-	tmpl.Execute(f, ctx)
+	err = tmpl.Execute(f, ctx)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func PageUrl(path string) string {
+	return strings.TrimSuffix(path+".html", "index.html")
 }

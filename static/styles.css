@@ -132,6 +132,7 @@ header nav a::before {
 /* make markdown look kinda like the source code */
 
 main > h1::before,
+main > h2::before,
 .markdown h1::before,
 .markdown h2::before,
 .markdown h3::before,
@@ -147,6 +148,7 @@ main > h1::before,
   content: '# ' / '';
 }
 
+main > h2::before,
 .markdown h2::before {
   content: '## ';
   content: '## ' / '';

@@ -6,7 +6,7 @@ type: page
 Here's some things I made:
 
 ## This website
-Made with a custom static site generator, written in 188 lines of Go. Definitely not as flexible as something like
+Made with a custom static site generator, written in 236 lines of Go. Definitely not as flexible as something like
 Hugo, but a lot simpler.
 
 [Git repo](https://git.lunaa.ch/luna/site) - files in the root directory are build infrastructure and directories
