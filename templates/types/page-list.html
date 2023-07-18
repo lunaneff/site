@@ -3,21 +3,19 @@
 {{ end }}
 
 {{ define "content" }}
-  <main>
-    <h1>{{ .Meta.Title }}</h1>
-    <div class="markdown">
-      {{ .Content }}
-    </div>
+  <h1>{{ .Meta.Title }}</h1>
+  <div class="markdown">
+    {{ .Content }}
+  </div>
 
-    {{ $posts := .AllPages | filterType (index .Meta.Custom "list-type") | mostRecent }}
-    
-    {{ range $posts }}
-      <h2><a href="{{ .Path | url }}">{{ .Meta.Title }}</a></h2>
-      <span>Published {{ .Meta.Published | formatTime "2006-01-02"}}
-      <p>
-        {{ .Meta.Desc }}
-      </p>
-    {{ end }}
-  </main>
+  {{ $posts := .AllPages | filterType (index .Meta.Custom "list-type") | mostRecent }}
+  
+  {{ range $posts }}
+    <h2><a href="{{ .Path | url }}">{{ .Meta.Title }}</a></h2>
+    <span>Published {{ .Meta.Published | formatTime "2006-01-02"}}
+    <p>
+      {{ .Meta.Desc }}
+    </p>
+  {{ end }}
 {{ end }}
 

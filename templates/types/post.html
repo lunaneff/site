@@ -3,12 +3,10 @@
 {{ end }}
 
 {{ define "content" }}
-  <main>
-    <h1>{{ .Meta.Title }}</h1>
-    <span>Published {{ .Meta.Published | formatTime "2006-01-02" }}
-    <div class="markdown">
-      {{ .Content }}
-    </div>
-  </main>
+  <h1>{{ .Meta.Title }}</h1>
+  <span>Published {{ .Meta.Published | formatTime "2006-01-02" }}
+  <div class="markdown">
+    {{ .Content }}
+  </div>
 {{ end }}
 

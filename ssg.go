@@ -61,7 +61,6 @@ func main() {
 		os.RemoveAll(outDir)
 	}
 
-	//pagePaths, err := filepath.Glob(contentDir + "/**.md")
 	var pagePaths []string
 	err := filepath.Walk(contentDir, func(path string, info os.FileInfo, err error) error {
 		if strings.HasSuffix(path, ".md") {

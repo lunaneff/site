@@ -3,10 +3,8 @@
 {{ end }}
 
 {{ define "content" }}
-  <main>
-    <h1>{{ .Meta.Title }}</h1>
-    <div class="markdown">
-      {{ .Content }}
-    </div>
-  </main>
+  <h1>{{ .Meta.Title }}</h1>
+  <div class="markdown">
+    {{ .Content }}
+  </div>
 {{ end }}
