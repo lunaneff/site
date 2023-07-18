@@ -256,11 +256,11 @@ main > h2::before,
   left: -2em;
 }
 
-.markdown hr {
+hr {
   border: none;
 }
 
-.markdown hr::before {
+hr::before {
   content: '---';
   content: '---' / '';
   color: var(--color-love);
