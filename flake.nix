@@ -23,7 +23,7 @@
 
         src = ./.;
 
-        vendorHash = "sha256-8N2d6xp8gLYr+VomuhxmdMVGAKPjGP5ApzwP0338vmg=";
+        vendorHash = "sha256-YjMxgze5Yf178rOLwj4ctRL+XXyCgGd9TGf8gnWLhKQ=";
       };
       buildSite = { contentDir, staticDir, templateDir }: pkgs.stdenv.mkDerivation {
         name = "ssg-site";
