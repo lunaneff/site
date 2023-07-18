@@ -52,10 +52,18 @@ body {
 
 a {
   color: var(--color-foam);
-  text-decoration: none;
+  text-decoration: underline dotted;
 }
 
 a:hover {
+  text-decoration: underline;
+}
+
+a.nounder {
+  text-decoration: none;
+}
+
+a.nounder:hover {
   text-decoration: underline;
 }
 
