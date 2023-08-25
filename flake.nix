@@ -1,9 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
+    nix-filter.url = "github:numtide/nix-filter";
   };
 
-  outputs = {nixpkgs, ...}: let
+  outputs = {nixpkgs, nix-filter, ...}: let
     inherit (nixpkgs) lib;
     genSystems = lib.genAttrs [
       "x86_64-linux"
@@ -15,13 +16,22 @@
     nixpkgsFor = system: import nixpkgs {inherit system;};
 
     genWithPkgs = f: genSystems (system: f (nixpkgsFor system));
+
+    filter = nix-filter.lib;
   in {
     packages = genWithPkgs (pkgs: rec {
       ssg = pkgs.buildGoModule {
         pname = "ssg";
         version = "0.1.0";
 
-        src = ./.;
+        src = filter {
+          root = ./.;
+          include = [
+            "go.mod"
+            "go.sum"
+            (filter.matchExt "go")
+          ];
+        };
 
         vendorHash = "sha256-YjMxgze5Yf178rOLwj4ctRL+XXyCgGd9TGf8gnWLhKQ=";
       };
