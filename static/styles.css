@@ -36,13 +36,22 @@ html {
   }
 }
 
+@font-face {
+  font-family: VT323;
+  src:
+    local('VT323'),
+    url('/VT323.ttf') format('truetype');
+  font-display: swap;
+}
+
 html {
-  font-family: monospace;
-  font-size: 16px;
+  font-family: VT323, monospace;
+  font-size: 20px;
   line-height: 2;
   background: var(--color-base);
   color: var(--color-text);
-  text-shadow: 0px 0px 4px currentColor;
+  text-shadow: 0px 0px 3px currentColor;
+  letter-spacing: 1px; /* VT323 can be hard to read without a bit of extra spacing */
 }
 
 /* CRT effect: scanlines */
@@ -271,6 +280,7 @@ main > h2::before,
   background: var(--color-overlay);
   padding: 6px 12px;
   border-radius: 8px;
+  font-family: VT323, monospace;
 }
 
 .markdown code::before, .markdown code::after {
