@@ -42,6 +42,7 @@ html {
   line-height: 2;
   background: var(--color-base);
   color: var(--color-text);
+  text-shadow: 0px 0px 4px currentColor;
 }
 
 /* CRT effect: scanlines */
@@ -80,7 +81,7 @@ html::after {
   height: 100vh;
   pointer-events: none;
 
-  background-image: repeating-linear-gradient(to bottom, #0000, #fff9 var(--beam-position), #0000 var(--beam-position), #fff9 calc(100% + var(--beam-position)));
+  background-image: repeating-linear-gradient(to bottom, #0000, #fff9 var(--beam-position), #0000 calc(1% + var(--beam-position)), #fff9 calc(100% + var(--beam-position)));
   mix-blend-mode: overlay;
   animation: scanning-beam 10s infinite linear;
 }
