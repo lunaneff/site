@@ -135,6 +135,7 @@ a.nounder:hover {
 
 header {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   color: var(--color-subtle);
 }
@@ -157,6 +158,7 @@ header .path {
 
 header nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
