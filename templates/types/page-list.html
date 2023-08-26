@@ -12,7 +12,7 @@
   
   {{ range $posts }}
     <h2><a href="{{ .Path | url }}">{{ .Meta.Title }}</a></h2>
-    <span>Published {{ .Meta.Published | formatTime "2006-01-02"}}
+    <span>Published {{ .Meta.Published | formatTime "2006-01-02"}}</span>
     <p>
       {{ .Meta.Desc }}
     </p>
