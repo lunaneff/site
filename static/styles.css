@@ -172,6 +172,11 @@ header nav a::before {
   color: var(--color-subtle);
 }
 
+/* .88x31 css class */
+.\38 8x31 {
+  image-rendering: pixelated;
+}
+
 /* Syntax Highlighting */
 .chroma .err, .chroma .gd {
   color: var(--color-love);
