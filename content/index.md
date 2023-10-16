@@ -25,5 +25,5 @@ I'm Luna, and I'm:
 
 ## Socials
 
-[fedi](https://mk.absturztau.be/@luna)  
+[fedi](https://catgirl.center/@luna)  
 [git](https://git.lunaa.ch/luna) (self-hosted)  
