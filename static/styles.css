@@ -50,11 +50,11 @@ html {
   line-height: 2;
   background: var(--color-base);
   color: var(--color-text);
-  text-shadow: 0px 0px 3px currentColor;
+  text-shadow: 0px 0px 2em;
   letter-spacing: 1px; /* VT323 can be hard to read without a bit of extra spacing */
 }
 
-/* CRT effect: scanlines */
+/* scanlines effect */
 html::before {
   content: '';
   position: fixed;
@@ -70,44 +70,6 @@ html::before {
   --gap-color: color-mix(in srgb, var(--color-base) 60%, #0000);
 
   background-image: repeating-linear-gradient(to bottom, #0000, #0000 var(--scanline-height), var(--gap-color) var(--scanline-height), var(--gap-color) calc(var(--scanline-height) + var(--scanline-gap)));
-}
-
-/* CRT effect: beam scanning across screen */
-/* As of writing, Firefox only supports @property in nightly, but all other browsers implement it */
-@property --beam-position {
-  syntax: '<percentage>';
-  initial-value: 0%;
-  inherits: false;
-}
-
-html::after {
-  content: '';
-  position: fixed;
-  display: block;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-
-  background-image: repeating-linear-gradient(to bottom, #0000, #fff9 var(--beam-position), #0000 calc(1% + var(--beam-position)), #fff9 calc(100% + var(--beam-position)));
-  mix-blend-mode: overlay;
-  animation: scanning-beam 10s infinite linear;
-}
-
-@keyframes scanning-beam {
-  0% {
-    --beam-position: 0%;
-  }
-  100% {
-    --beam-position: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html::after {
-    display: none;
-  }
 }
 
 body {
