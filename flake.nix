@@ -4,7 +4,11 @@
     nix-filter.url = "github:numtide/nix-filter";
   };
 
-  outputs = {nixpkgs, nix-filter, ...}: let
+  outputs = {
+    nixpkgs,
+    nix-filter,
+    ...
+  }: let
     inherit (nixpkgs) lib;
     genSystems = lib.genAttrs [
       "x86_64-linux"
@@ -18,8 +22,8 @@
     genWithPkgs = f: genSystems (system: f (nixpkgsFor system));
 
     filter = nix-filter.lib;
-  in {
-    packages = genWithPkgs (pkgs: rec {
+
+    packages = pkgs: rec {
       ssg = pkgs.buildGoModule {
         pname = "ssg";
         version = "0.1.0";
@@ -35,26 +39,37 @@
 
         vendorHash = "sha256-YjMxgze5Yf178rOLwj4ctRL+XXyCgGd9TGf8gnWLhKQ=";
       };
-      buildSite = { contentDir, staticDir, templateDir }: pkgs.stdenv.mkDerivation {
-        name = "ssg-site";
+      buildSite = {
+        contentDir,
+        staticDir,
+        templateDir,
+      }:
+        pkgs.stdenv.mkDerivation {
+          name = "ssg-site";
 
-        inherit contentDir staticDir templateDir;
+          inherit contentDir staticDir templateDir;
 
-        nativeBuildInputs = [ ssg ];
+          nativeBuildInputs = [ssg];
 
-        dontUnpack = true; # we don't have sources; unpacking will cause an error
+          dontUnpack = true; # we don't have sources; unpacking will cause an error
 
-        buildPhase = ''
-          site -contentDir $contentDir -staticDir $staticDir -templateDir $templateDir -out $out
-        '';
-      };
+          buildPhase = ''
+            site -contentDir $contentDir -staticDir $staticDir -templateDir $templateDir -out $out
+          '';
+        };
       lunaSite = buildSite {
         contentDir = ./content;
         staticDir = ./static;
         templateDir = ./templates;
       };
-    });
-  
+    };
+  in {
+    packages = genWithPkgs packages;
+
+    overlays = {
+      lunaSite = self: super: packages super;
+    };
+
     devShells = genWithPkgs (pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
@@ -64,7 +79,7 @@
         ];
       };
     });
-    
+
     formatter = genWithPkgs (pkgs: pkgs.alejandra);
   };
 }
